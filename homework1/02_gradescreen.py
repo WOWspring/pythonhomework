@@ -27,3 +27,7 @@ gradedict = {
 for key, value in gradedict.items():
     if value > 80:
         print(f"{key}: {value}")
+
+# #排序实验
+# sorted(gradedict,key = lambda x: x[1])
+# print(gradedict)

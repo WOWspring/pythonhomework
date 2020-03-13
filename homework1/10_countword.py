@@ -30,3 +30,6 @@ sortedfrdict = sorted(frequencedict.items(), key = lambda x : x[1], reverse = Tr
 
 for i in range(len(sortedfrdict)):
     print(f"{sortedfrdict[i][0]}: {sortedfrdict[i][1]}") 
+
+
+# mydict = {word: sentence.split().count(word) for word in set(sentence.split())}   上课讲解的方法
