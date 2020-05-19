@@ -1,0 +1,11 @@
+SELECT name, age, cls_id FROM students WHERE gender='男';
+SELECT * FROM students WHERE id<4 OR is_delete<>0;
+SELECT * FROM students WHERE name LIKE '黄_';
+SELECT * FROM students WHERE id=1 OR id=3 OR id=8;
+SELECT * FROM students WHERE id BETWEEN 3 AND 8;
+SELECT * FROM students WHERE gender='男' AND is_delete<>0 ORDER BY age DESC;
+SELECT COUNT(*) AS totality FROM students WHERE gender='女';
+SELECT AVG(age) AS composite_age FROM students;
+SELECT AVG(age) AS male_composite_age FROM students WHERE gender='男';
+SELECT AVG(age) AS female_composite_age FROM students WHERE gender='女';
+SELECT gender, group_concat(name) FROM students group by gender;
