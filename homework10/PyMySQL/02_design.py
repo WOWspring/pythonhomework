@@ -224,6 +224,7 @@ def chart_clear(sql:SQL):
         print('Input error: acceptable input is y or n.')
 
 if __name__ == '__main__':
+    print('程序运行中会有warning提示，是time格式问题，不影响程序本身')
     pw = input('Please input a password: ')
     sql = SQL(pw)
     #检查清空使用
