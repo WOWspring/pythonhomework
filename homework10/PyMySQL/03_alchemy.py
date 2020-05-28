@@ -222,9 +222,9 @@ if __name__ == '__main__':
     print('程序运行中会有warning提示，是time格式问题，不影响程序本身')
     sqlal = Sqlal(input('Please input your password to conduct your database:'))
     sqlal.clear_chart()       #'NoneType' object is not callable
-    # sqlal.insert_chart('This is great!', 'Superman')
-    # sqlal.insert_chart('I\'am Batman', 'Batman' )
-    # sqlal.insert_chart('You have failed this city.', 'Arrow')
+    sqlal.insert_chart('This is great!', 'Superman')
+    sqlal.insert_chart('I\'am Batman', 'Batman' )
+    sqlal.insert_chart('You have failed this city.', 'Arrow')
     sqlal.delete_chart(int(input('Please input the id of message that you want to delete:')))
     sqlal.update_chart(41,'try update_chart function')
     temp = sqlal.search_chart(user = 'Arrow')
