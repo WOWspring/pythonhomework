@@ -1,0 +1,3 @@
+在pipelines和spider中有中文调试
+在settings中，pipeline调用的类修改为了temp
+在settings中，ROBOTSTXT_OBEY 修改为了False用于调试
