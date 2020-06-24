@@ -7,5 +7,7 @@
 # @Software: PyCharm
 
 from scrapy import cmdline
+
+
 cmdline.execute('scrapy crawl findjob'.split())
 # cmdline.execute('scrapy crawl findjob -s LOG_FILE=all.log'.split())

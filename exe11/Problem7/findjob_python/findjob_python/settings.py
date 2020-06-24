@@ -11,7 +11,7 @@
 
 BOT_NAME = 'findjob_python'
 
-MAX_PAGECRAWL_NUMBER = 685
+MAX_PAGECRAWL_NUMBER = 1000
 SPIDER_MODULES = ['findjob_python.spiders']
 NEWSPIDER_MODULE = 'findjob_python.spiders'
 
