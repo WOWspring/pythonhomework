@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from bs4 import BeautifulSoup
+import bs4
+from parse_data import count_salary
 from settings import MAX_PAGECRAWL_NUMBER as MAX
 from urllib.parse import quote
 
@@ -13,14 +15,15 @@ class FindjobSpider(scrapy.Spider):
     base_urls_botton = '.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
     search_target = 'Python'
     # start_urls = [base_urls_top + search_target + base_urls_botton]
+    job_count = 0
 
     def start_requests(self):
-        # for page in range(1, MAX):
-        #     url = self.base_urls_top + self.search_target + self.base_urls_middle + str(page) + self.base_urls_botton
-        #     # print('当前正在解析读取数据的页面为：' + url)
-        #     yield scrapy.Request(url=url, callback=self.parse_page)
-        url = self.base_urls_top + self.search_target + self.base_urls_middle + str(1) + self.base_urls_botton
-        yield scrapy.Request(url=url, callback=self.parse_page)
+        for page in range(1, MAX):
+            url = self.base_urls_top + self.search_target + self.base_urls_middle + str(page) + self.base_urls_botton
+            # print('当前正在解析读取数据的页面为：' + url)
+            yield scrapy.Request(url=url, callback=self.parse_page)
+        # url = self.base_urls_top + self.search_target + self.base_urls_middle + str(1) + self.base_urls_botton
+        # yield scrapy.Request(url=url, callback=self.parse_page)
 
     def parse(self, response):
         pass
@@ -29,25 +32,21 @@ class FindjobSpider(scrapy.Spider):
         job_info_dict = {}
 
         soup = BeautifulSoup(response.body.decode('gbk'), "html.parser")
-        # position = response.css('.el').extract()
-        # job_title_list = position.css('.t1 tg1::text').extract()
-        # company_name_list = position.css('.t2:text').extract()
-        # working_location_list = position.css('.t3:text').extract()
-        # salary_list = position.css('.t4:text').extract()    #处理
-        # publish_datetime_list = position.css('.t5:text').extract()
+        job_skim = soup.find_all('div', class_='dw_table', id="resultList")[0]
+        job_skim: bs4.element.Tag
+        job_info_list = job_skim.find_all('div', class_='el')[1:]
+        for item in job_info_list:
+            item: bs4.element.Tag
+            tempsalary = 0
+            if item.find('span', class_='t4').text != '':
+                tempsalary = count_salary(str(item.find('span', class_='t4').text).split()[0])
+            job_info_dict[str(self.job_count)] = {
+                    '职位名': str(item.find('p', class_='t1').text).split()[0],
+                    '公司名': str(item.find('span', class_='t2').text).split()[0],
+                    '工作地点': str(item.find('span', class_='t3').text).split()[0],
+                    '薪资': tempsalary,
+                    '发布时间': str(item.find('span', class_='t5').text).split()[0]
+                }
+            self.job_count = self.job_count + 1
 
-        for i in range(len(job_title_list)):
-            job_info_dict.update(
-                {
-                    '职位名': job_title_list[i],
-                    '公司名': company_name_list[i],
-                    '工作地点': working_location_list[i],
-                    '薪资': salary_list[i],
-                    '发布时间': publish_datetime_list[i]
-                })
         yield job_info_dict
-        #测试用
-        # print('==============================================')
-        # print(response.body.decode('gbk'))
-        # print('==============================================')
-        # yield {'网页原文': response.body.decode('gbk')}

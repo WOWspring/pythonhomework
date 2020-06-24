@@ -13,7 +13,12 @@ soup = BeautifulSoup(open('JobInfo.txt'), "html.parser")
 jobskim = soup.find_all('div', class_='dw_table', id="resultList")[0]
 jobskim: bs4.element.Tag
 jobInfo = jobskim.find_all('div', class_='el')[1:]
-print(jobskim)
-print(type(jobskim))
-print(jobInfo)
-print(type(jobInfo))
+for item in jobInfo:
+    item : bs4.element.Tag
+    print(str(item.find('p', class_='t1').text).split())
+    print(str(item.find('span', class_='t2').text).split())
+    print(str(item.find('span', class_='t3').text).split())
+    print(str(item.find('span', class_='t4').text).split())
+    print(str(item.find('span', class_='t5').text).split())
+# print(jobInfo)
+# print(type(jobInfo))
