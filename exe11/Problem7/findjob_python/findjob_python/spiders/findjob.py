@@ -4,32 +4,37 @@ from bs4 import BeautifulSoup
 import bs4
 from parse.parse_data import count_salary
 from settings import MAX_PAGECRAWL_NUMBER as MAX
+from url.spider_url import base_urls_middle, base_urls_top, base_urls_bottom
 
 
 class FindjobSpider(scrapy.Spider):
     name = 'findjob'
     allowed_domains = ['51job.com']
-    base_urls_top = 'https://search.51job.com/list/000000,000000,0000,00,9,99,'
-    base_urls_middle = ',2,'
-    base_urls_bottom = '.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99' \
-                       '&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType' \
-                       '=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare= '
     search_target = 'Python'
-    # start_urls = [base_urls_top + search_target + base_urls_bottom]
-    job_count = 0  # 工作编号
+    job_count = 0
 
     def start_requests(self):
+        """
+
+        Returns:
+            Return a request generator, which callback a class method to parse the response.
+        """
         for page in range(1, MAX):
-            url = self.base_urls_top + self.search_target + self.base_urls_middle + str(page) + self.base_urls_bottom
+            url = base_urls_top + self.search_target + base_urls_middle + str(page) + base_urls_bottom
             yield scrapy.Request(url=url, callback=self.parse_page)
-        # test
-        # url = self.base_urls_top + self.search_target + self.base_urls_middle + str(1) + self.base_urls_bottom
-        # yield scrapy.Request(url=url, callback=self.parse_page)
 
     def parse(self, response):
         pass
 
     def parse_page(self, response):
+        """
+
+        Args:
+            response:Accept the data sent back by request.
+
+        Returns:
+            Returns a generator, which is the dictionary of job information by parsing the web page.
+        """
         job_info_dict = {}
 
         soup = BeautifulSoup(response.body.decode('gbk'), "html.parser")

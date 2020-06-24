@@ -8,6 +8,14 @@
 
 
 def count_salary(salary_text:str):
+    """
+
+    Args:
+        salary_text: A text concerning salary parsed in the web page.
+
+    Returns:
+        Returns the average salary amount calculated based on the salary text, expressed in floating-point numbers.
+    """
     date_radix = 1   #薪资基数
     unit_radix = 1   #单位基数
     avge = 0    #平均工资(无基数)

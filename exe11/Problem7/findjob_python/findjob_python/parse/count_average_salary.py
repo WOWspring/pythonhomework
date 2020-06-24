@@ -8,6 +8,11 @@
 
 
 def count_average_salary():
+    """
+
+    Returns:
+        Calculate the salary level of Beijing area based on the file of crawling data.
+    """
     sum_salary = 0.00
     count = 0
     with open('../data/JobInfo.txt', 'r') as f:

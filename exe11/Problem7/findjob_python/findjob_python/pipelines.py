@@ -10,11 +10,28 @@ from sql.jobsql import chart_clear
 
 class FindjobPythonPipeline:
     def process_item(self, item, spider):
+        """
+
+        Args:
+            item: Dictionary data to be processed.
+            spider:The spider layer of the scrapy.
+
+        Returns:
+            item.
+        """
         return item
 
 
 class JobInfoPipeline(object):
     def open_spider(self, spider):
+        """
+
+        Args:
+            spider:The spider layer of the scrapy.
+
+        Returns:
+            None
+        """
         self.f = open('data/jobinfo.txt', 'w')
         self.f.write('职位名 公司名 工作地点 薪资 发布时间')
         self.pw = input('Please input a password: ')
@@ -23,10 +40,28 @@ class JobInfoPipeline(object):
         # self.sql.alter_id()
 
     def close_spider(self, spider):
+        """
+
+        Args:
+            spider: The spider layer of the scrapy.
+
+        Returns:
+            None
+        """
         self.f.close()
         self.sql.exit()
 
     def process_item(self, item, spider, key_list=None):
+        """
+
+        Args:
+            item: Dictionary data to be processed.
+            spider: The spider layer of the scrapy.
+            key_list: List of key value data used to temporarily store Dictionaries.
+
+        Returns:
+            Return item in case other functions need to callback this data.
+        """
         try:
             item: dict
             key_list = list(item.keys())
