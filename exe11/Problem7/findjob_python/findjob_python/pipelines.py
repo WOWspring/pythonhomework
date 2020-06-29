@@ -32,9 +32,11 @@ class JobInfoPipeline(object):
         Returns:
             None
         """
-        self.f = open('data/jobinfo.txt', 'w')
+        self.f = open('data/jobinfo.txt', 'w', encoding='gbk')
         self.f.write('职位名 公司名 工作地点 薪资 发布时间')
+        print('由于scrapy爬虫爬取速度过快易被当成恶意攻击。请如果没有即刻开始爬取网页请耐心等待。')
         self.pw = input('Please input a password: ')
+        # self.pw = 'password'
         self.sql = SQL(self.pw)
         chart_clear(self.sql)
         # self.sql.alter_id()
