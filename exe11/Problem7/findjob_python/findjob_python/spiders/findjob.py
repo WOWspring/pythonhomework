@@ -5,12 +5,12 @@ import bs4
 from parse.parse_data import count_salary
 from settings import MAX_PAGECRAWL_NUMBER as MAX
 from url.spider_url import base_urls_middle, base_urls_top, base_urls_bottom
-
+from urllib.parse import quote
 
 class FindjobSpider(scrapy.Spider):
     name = 'findjob'
     allowed_domains = ['51job.com']
-    search_target = 'Python'
+    search_target = quote('Python')
     job_count = 0
 
     def start_requests(self):
