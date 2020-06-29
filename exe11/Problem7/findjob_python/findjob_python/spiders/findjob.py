@@ -10,7 +10,8 @@ from urllib.parse import quote
 class FindjobSpider(scrapy.Spider):
     name = 'findjob'
     allowed_domains = ['51job.com']
-    search_target = quote('Python')
+    # search_target = quote('Python')
+    search_target = quote(input("请输入所要查找的工作："))
     job_count = 0
 
     def start_requests(self):
